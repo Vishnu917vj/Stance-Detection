@@ -1,0 +1,18 @@
+/Bart_trained
+/Bart_trained_model
+/bertweet_stance
+/bertweet_stance_finetuned
+/t5_trained
+/t5_trained_model
+/vast_filtered_im/Bart_trained
+/vast_filtered_im/Bart_trained_model
+/vast_filtered_im/bertweet_stance
+/vast_filtered_im/t5_trained
+/vast_filtered_im/t5_trained_model
+/vast_filtered_im/keybart_trained
+/vast_filtered_im/keybart_trained_model
+/wandb
+/keybart_trained
+/keybart_trained_model
+# /*.csv
+# /*.json

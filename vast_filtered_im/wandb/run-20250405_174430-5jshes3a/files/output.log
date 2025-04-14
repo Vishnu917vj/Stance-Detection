@@ -1,0 +1,67 @@
+
+Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+Saving trained model...
+Calculating Post-training Metrics...
+Some weights of RobertaModel were not initialized from the model checkpoint at roberta-large and are newly initialized: ['pooler.dense.bias', 'pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Post-training Metrics and Predictions saved!
+Error in callback <bound method _WandbInit._pause_backend of <wandb.sdk.wandb_init._WandbInit object at 0x000001B033D763B0>> (for post_run_cell), with arguments args (<ExecutionResult object at 1af52777970, execution_count=1 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 1af527779a0, raw_cell="import pandas as pd
+import numpy as np
+import torc.." store_history=True silent=False shell_futures=True cell_id=vscode-notebook-cell:/c%3A/Users/CSE%20RGUKT/Desktop/Stance/vast_filtered_im/Stance_Updated_2_im.ipynb#X10sZmlsZQ%3D%3D> result=None>,),kwargs {}:
+Error in callback <bound method _WandbInit._resume_backend of <wandb.sdk.wandb_init._WandbInit object at 0x000001B033D763B0>> (for pre_run_cell), with arguments args (<ExecutionInfo object at 1b02addace0, raw_cell="import pandas as pd
+import numpy as np
+import torc.." store_history=True silent=False shell_futures=True cell_id=vscode-notebook-cell:/c%3A/Users/CSE%20RGUKT/Desktop/Stance/vast_filtered_im/Stance_Updated_2_im.ipynb#X13sZmlsZQ%3D%3D>,),kwargs {}:
+[nltk_data] Downloading package wordnet to C:\Users\CSE
+[nltk_data]     RGUKT\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+[nltk_data] Downloading package omw-1.4 to C:\Users\CSE
+[nltk_data]     RGUKT\AppData\Roaming\nltk_data...
+[nltk_data]   Package omw-1.4 is already up-to-date!
+Using device: cuda
+Loaded KeyBART successfully.
+Calculating Pre-training Metrics...
+Some weights of RobertaModel were not initialized from the model checkpoint at roberta-large and are newly initialized: ['pooler.dense.bias', 'pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Pre-training Metrics and Predictions saved!
+Map:   0%|          | 0/1980 [00:00<?, ? examples/s]C:\Users\CSE RGUKT\AppData\Roaming\Python\Python310\site-packages\transformers\tokenization_utils_base.py:3980: UserWarning: `as_target_tokenizer` is deprecated and will be removed in v5 of Transformers. You can tokenize your labels by using the argument `text_target` of the regular `__call__` method (either in the same call as your input texts if you use the same keyword arguments, or in a separate call.
+  warnings.warn(
+
+
+Map:  78%|███████▊  | 1550/1980 [00:04<00:01, 395.11 examples/s]
+
+Map: 100%|██████████| 1980/1980 [00:05<00:00, 371.33 examples/s]
+C:\Users\CSE RGUKT\AppData\Roaming\Python\Python310\site-packages\transformers\modeling_utils.py:3353: UserWarning: Moving the following attributes in the config to the generation config: {'early_stopping': True, 'num_beams': 4, 'no_repeat_ngram_size': 3}. You are seeing this warning because you've set generation parameters in the model config, as opposed to in the generation config.
+  warnings.warn(
+Saving trained model...
+Calculating Post-training Metrics...
+Some weights of RobertaModel were not initialized from the model checkpoint at roberta-large and are newly initialized: ['pooler.dense.bias', 'pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Post-training Metrics and Predictions saved!
+Error in callback <bound method _WandbInit._pause_backend of <wandb.sdk.wandb_init._WandbInit object at 0x000001B033D763B0>> (for post_run_cell), with arguments args (<ExecutionResult object at 1b02addabc0, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 1b02addace0, raw_cell="import pandas as pd
+import numpy as np
+import torc.." store_history=True silent=False shell_futures=True cell_id=vscode-notebook-cell:/c%3A/Users/CSE%20RGUKT/Desktop/Stance/vast_filtered_im/Stance_Updated_2_im.ipynb#X13sZmlsZQ%3D%3D> result=None>,),kwargs {}:
+Error in callback <bound method _WandbInit._resume_backend of <wandb.sdk.wandb_init._WandbInit object at 0x000001B033D763B0>> (for pre_run_cell), with arguments args (<ExecutionInfo object at 1b033d76c80, raw_cell="import pandas as pd
+import numpy as np
+import torc.." store_history=True silent=False shell_futures=True cell_id=vscode-notebook-cell:/c%3A/Users/CSE%20RGUKT/Desktop/Stance/vast_filtered_im/Stance_Updated_2_im.ipynb#X15sZmlsZQ%3D%3D>,),kwargs {}:
+[nltk_data] Downloading package wordnet to C:\Users\CSE
+[nltk_data]     RGUKT\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+[nltk_data] Downloading package omw-1.4 to C:\Users\CSE
+[nltk_data]     RGUKT\AppData\Roaming\nltk_data...
+[nltk_data]   Package omw-1.4 is already up-to-date!
+Using device: cuda
+Map:   0%|          | 0/1980 [00:00<?, ? examples/s]C:\Users\CSE RGUKT\AppData\Roaming\Python\Python310\site-packages\transformers\tokenization_utils_base.py:3980: UserWarning: `as_target_tokenizer` is deprecated and will be removed in v5 of Transformers. You can tokenize your labels by using the argument `text_target` of the regular `__call__` method (either in the same call as your input texts if you use the same keyword arguments, or in a separate call.
+  warnings.warn(
+
+
+Map: 100%|██████████| 1980/1980 [00:04<00:00, 434.15 examples/s]
+Training T5...
+C:\Users\CSE RGUKT\AppData\Roaming\Python\Python310\site-packages\transformers\modeling_utils.py:3353: UserWarning: Moving the following attributes in the config to the generation config: {'early_stopping': True, 'num_beams': 4, 'no_repeat_ngram_size': 3, 'forced_bos_token_id': 0}. You are seeing this warning because you've set generation parameters in the model config, as opposed to in the generation config.
+  warnings.warn(
+Saving trained model...
+Calculating Post-training Metrics...
+Some weights of RobertaModel were not initialized from the model checkpoint at roberta-large and are newly initialized: ['pooler.dense.bias', 'pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Post-training Metrics and Predictions saved!
+Error in callback <bound method _WandbInit._pause_backend of <wandb.sdk.wandb_init._WandbInit object at 0x000001B033D763B0>> (for post_run_cell), with arguments args (<ExecutionResult object at 1b033d76b30, execution_count=3 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 1b033d76c80, raw_cell="import pandas as pd
+import numpy as np

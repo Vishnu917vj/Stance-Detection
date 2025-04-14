@@ -1,0 +1,46 @@
+{
+    "os": "Windows-10-10.0.26100-SP0",
+    "python": "3.10.0",
+    "heartbeatAt": "2025-04-05T12:14:31.218438",
+    "startedAt": "2025-04-05T12:14:30.112236",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "<python with no main file>",
+    "codePathLocal": null,
+    "host": "DESKTOP-A7BOTBQ",
+    "username": "CSE RGUKT",
+    "executable": "c:\\Program Files\\Python310\\python.exe",
+    "cpu_count": 32,
+    "cpu_count_logical": 64,
+    "cpu_freq": {
+        "current": 2893.0,
+        "min": 0.0,
+        "max": 2893.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2893.0,
+            "min": 0.0,
+            "max": 2893.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 476.08788681030273,
+            "used": 403.05190658569336
+        }
+    },
+    "gpu": "NVIDIA RTX A4000",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA RTX A4000",
+            "memory_total": 17171480576
+        }
+    ],
+    "memory": {
+        "total": 190.7099838256836
+    }
+}
