@@ -1,175 +1,140 @@
-🔑 Keyphrase Generation and Stance Detection
-This project performs Keyphrase Generation using a BART-based sequence-to-sequence model and evaluates the generated keyphrases using various NLP metrics. It also includes Stance Detection between the generated keyphrases and the original posts using a fine-tuned BERTweet model.
+# Keyphrase Generation and Stance Detection with BART
 
-📁 Project Structure
-bash
-Copy
-Edit
-project-root/
-│
-├── keyphrase_generation.py      # Code for generating keyphrases and computing metrics
-├── stance_detection.py          # Code for predicting stance using BERTweet
-├── test_predictions_*.csv       # Output prediction files
-├── test_metrics_*.json          # Evaluation metrics
-└── README.md                    # Project documentation
-🧠 Features
-1. Keyphrase Generation
-Uses a pre-trained or fine-tuned facebook/bart-base model.
+This folder (`Bartbase_Stance`) contains code for generating keyphrases from textual statements and detecting the stance (FAVOR, AGAINST, NONE) between the generated keyphrases and the original statements using a fine-tuned BERTweet model. The keyphrase generation is performed using the BART model (`facebook/bart-base`), and stance detection leverages a pre-trained or fine-tuned BERTweet model.
 
-Input: Text posts (from CSV files).
+This guide explains how to set up the environment, execute the code, and understand the workflow. The repository also includes similar experiments with other models (e.g., T5, KeyBART) in their respective folders.
 
-Output: Generated keyphrases.
+## Table of Contents
+1. [Overview](#overview)
+2. [Prerequisites](#prerequisites)
+3. [Repository Structure](#repository-structure)
+4. [Setup Instructions](#setup-instructions)
+5. [Data Preparation](#data-preparation)
+6. [Executing the Keyphrase Generation Code](#executing-the-keyphrase-generation-code)
+7. [Executing the Stance Detection Code](#executing-the-stance-detection-code)
+8. [Output Files](#output-files)
+9. [Troubleshooting](#troubleshooting)
+10. [Additional Notes](#additional-notes)
 
-Evaluates using:
+## Overview
+The workflow consists of two main tasks:
+1. **Keyphrase Generation**: Uses the BART model to generate keyphrases from input statements (e.g., social media posts). The generated keyphrases are evaluated using metrics like F1, ROUGE, METEOR, BERTScore, YiSi, and MoverScore.
+2. **Stance Detection**: Uses a fine-tuned BERTweet model to classify the stance (FAVOR, AGAINST, NONE) between the generated keyphrases and the original statements. Metrics such as precision and F1 score are computed.
 
-F1-score
+The code supports processing multiple input CSV files, generating predictions, and saving results (predictions and metrics) to files.
 
-ROUGE-1, ROUGE-L
+## Prerequisites
+- **Hardware**: A machine with a GPU (recommended for faster processing) and CUDA support if using GPU.
+- **Operating System**: Windows, Linux, or macOS.
+- **Python Version**: Python 3.8 or higher.
+- **Dependencies**: Install the required Python packages listed in the [Setup Instructions](#setup-instructions).
+- **Input Data**: CSV files containing the input statements and ground truth data (described in [Data Preparation](#data-preparation)).
 
-METEOR
 
-BERTScore
+- The `Bartbase_Stance` folder contains the code specific to experiments with the BART model.
+-Similarly there are folders for t5 and kaybart ,However T5 explicitely dont have a seperate folder its in the main folder.
 
-YiSi
+## Setup Instructions
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-repo-name.git
+   cd your-repo-name/Bartbase_Stance
 
-MoverScore
+   pandas
+## Install Dependencies:
 
-2. Stance Detection
-Uses a fine-tuned BERTweet model for stance classification (FAVOR, AGAINST, NONE).
-
-Input: Combination of post and generated keyphrase.
-
-Output: Stance prediction.
-
-Evaluates using:
-
-Classification Report
-
-Precision (Macro)
-
-F1 Score (Macro)
-
-🔧 Installation
-Requirements
-Python 3.8+
-
-transformers
-
-datasets
-
+numpy
 torch
-
-nltk
-
-pandas
-
+transformers
+datasets
 scikit-learn
-
 rouge-score
-
+nltk
 bert-score
 
-Install Dependencies
-bash
-Copy
-Edit
-pip install transformers datasets torch nltk pandas scikit-learn rouge-score bert-score
-Download NLTK Data
-python
-Copy
-Edit
+command : 
+pip install -r requirements.txt   
+
+
 import nltk
 nltk.download('wordnet')
 nltk.download('omw-1.4')
-🚀 Usage
-1. Run Keyphrase Generation
-Update the test file paths in keyphrase_generation.py:
 
-python
-Copy
-Edit
+Run the following Python commands to download required NLTK resources:
+
+import nltk
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+
+##Prepare the Fine-Tuned BERTweet Model:
+
+The stance detection script uses a fine-tuned BERTweet model located at Stance\\bertweet_stance_finetuned .
+Replace this path with the actual path to your fine-tuned BERTweet model, or use the pre-trained vinai/bertweet-base model by uncommenting the relevant lines in notebook.
+To use your own fine-tuned model, place it in the models/bertweet_stance_finetuned folder and update the path in notebook.
+
+
+##Data Preparation
+The input data for both scripts should be in CSV format with the following columns:
+
+For Keyphrase Generation (keyphrase_generation.py):
+post: The input statement (e.g., social media post).
+new_topic: The ground truth keyphrase for evaluation.
+
+For Stance Detection (stance_detection.py):
+post: The original statement.
+predictions: The generated keyphrase (output from keyphrase_generation.py).
+GT Stance: The ground truth stance label (FAVOR, AGAINST, NONE).
+You can use the provided example datasets (tse_explicit.csv, tse_implicit.csv, vast_filtered_im.csv) or create your own. Place the CSV files in the data folder or update the file paths in the scripts.
+
+
+
+##Executing the Keyphrase Generation Code
+The keyphrase_generation.py script generates keyphrases from input statements using the BART model and evaluates them against ground truth keyphrases.
+
+Update File Paths:
+Open keyphrase_generation.py and update the test_files list with the paths to your input CSV files:
 test_files = [
+    "path/to/tse_explicit.csv",
     "path/to/tse_implicit.csv",
-    "path/to/vast_filtered_im.csv",
-    "path/to/tse_explicit.csv"
+    "path/to/vast_filtered_im.csv"
 ]
-Then run:
+Ensure the CSV files exist at the specified paths.
 
-bash
-Copy
-Edit
-python keyphrase_generation.py
-It will:
+##What Happens:
+The script loads the BART model (facebook/bart-base) and tokenizer.
+For each input CSV file:
+It processes the post column to generate keyphrases.
+It computes evaluation metrics (F1, ROUGE-1, ROUGE-L, METEOR, BERTScore, YiSi, MoverScore) by comparing generated keyphrases to the new_topic column.
+It saves the predictions to a CSV file (e.g., test_predictions_tse_explicit.csv) and metrics to a JSON file (e.g., test_metrics_tse_explicit.json).
+#Generated files:
+test_predictions_tse_explicit.csv: Contains predictions (generated keyphrases) and ground_truth (reference keyphrases).
+test_metrics_tse_explicit.json: Contains evaluation metrics.
+## Executing the Stance Detection Code
+The stance_detection.py script predicts the stance (FAVOR, AGAINST, NONE) between the original statements and the generated keyphrases using a fine-tuned BERTweet model.
 
-Generate keyphrases for each post.
-
-Save predictions to test_predictions_<dataset>.csv.
-
-Save evaluation metrics to test_metrics_<dataset>.json.
-
-2. Run Stance Detection
-Ensure your model is fine-tuned and available locally or from Hugging Face.
-
-Update paths to your prediction CSVs and model directory in stance_detection.py.
-
-Then run:
-
-bash
-Copy
-Edit
-python stance_detection.py
-It will:
-
-Predict stances for each post-keyphrase pair.
-
-Save updated CSVs with a new column: predicted_stance_ BERTTWEET.
-
-Print classification reports and macro precision/F1.
-
-📊 Example Output
-🔑 Keyphrase Generation Metrics
-json
-Copy
-Edit
-{
-    "F1": 0.742,
-    "ROUGE-1": 0.615,
-    "ROUGE-L": 0.591,
-    "METEOR": 0.433,
-    "BERTScore": 0.812,
-    "YiSi": 0.789,
-    "MoverScore": 0.755
-}
-🧭 Stance Detection Metrics
-text
-Copy
-Edit
-              precision    recall  f1-score   support
-
-       FAVOR       0.78      0.75      0.76       100
-     AGAINST       0.70      0.72      0.71       90
-         NONE       0.69      0.70      0.69       85
-
-   macro avg       0.72      0.72      0.72       275
-🧪 Model Details
-Keyphrase Generation Model
-facebook/bart-base
-
-Fine-tuning recommended on your own dataset for better results.
-
-Stance Detection Model
-Fine-tuned vinai/bertweet-base on stance-labeled data (3 classes: FAVOR, AGAINST, NONE).
-
-Input format: "post [SEP] keyphrase"
-
-📝 License
-This project is for educational and research purposes. Always cite relevant model sources (e.g., BART, BERTweet) when publishing results.
-
-🙋‍♂️ Acknowledgements
-Facebook BART
-
-BERTweet by VinAI
-
-Hugging Face Transformers
-
-[ROUGE, METEOR, BERTScore, YiSi, MoverScore papers and tools]
+Update File Paths:
+Open stance_detection.py and update the csv_files list with the paths to the prediction CSV files generated by keyphrase_generation.py:
+ csv_files = [
+    'test_predictions_tse_explicit.csv',
+    'test_predictions_tse_implicit.csv',
+    'test_predictions_vast_filtered_im.csv'
+]
+Update the BERTweet model path if necessary:
+tokenizer = AutoTokenizer.from_pretrained("path/to/bertweet_stance_finetuned")
+model = AutoModelForSequenceClassification.from_pretrained("path/to/bertweet_stance_finetuned")
+##What Happens : 
+What Happens:
+The script loads the fine-tuned BERTweet model and tokenizer.
+For each input CSV file:
+It combines the post and predictions columns to predict the stance using BERTweet.
+It adds a new column (predicted_stance_BERTTWEET) to the CSV file with the predicted stance.
+It computes classification metrics (precision, F1 score, classification report) by comparing predicted stances to the GT Stance column.
+It updates the input CSV file with the new predictions.
+Finally, it computes and displays combined metrics across all files.
+#Output Files
+Keyphrase Generation:
+test_predictions_<dataset>.csv: Contains generated keyphrases and ground truth keyphrases.
+test_metrics_<dataset>.json: Contains evaluation metrics for each dataset.
+Stance Detection:
+Updated test_predictions_<dataset>.csv: Includes the predicted_stance_BERTTWEET column.
+Console output with per-file and combined classification metrics.
