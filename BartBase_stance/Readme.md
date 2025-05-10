@@ -1,7 +1,7 @@
-Keyphrase Generation and Stance Detection with BART
+## Keyphrase Generation and Stance Detection with BART
 This folder (Bartbase_Stance) contains a Jupyter Notebook for generating keyphrases from textual statements and detecting the stance (FAVOR, AGAINST, NONE) between the generated keyphrases and the original statements using a fine-tuned BERTweet model. The keyphrase generation is performed using the BART model (facebook/bart-base), and stance detection leverages a pre-trained or fine-tuned BERTweet model. The code is organized in a single notebook (bart_stance_notebook.ipynb) with different cells for keyphrase generation and stance detection.
 This guide explains how to set up the environment, execute the notebook, and understand the workflow. The repository also includes similar experiments with other models (e.g., T5, KeyBART) in their respective folders or the main directory, each with their own notebook and data.
-Table of Contents
+## Table of Contents
 
 Overview
 Prerequisites
@@ -13,16 +13,18 @@ Output Files
 Troubleshooting
 Additional Notes
 
-Overview
+## Overview
 The workflow consists of two main tasks, implemented in separate cells within the same notebook:
 
-Keyphrase Generation: Uses the BART model to generate keyphrases from input statements (e.g., social media posts). The generated keyphrases are evaluated using metrics like F1, ROUGE, METEOR, BERTScore, YiSi, and MoverScore.
+## Keyphrase Generation: 
+Uses the BART model to generate keyphrases from input statements (e.g., social media posts). The generated keyphrases are evaluated using metrics like F1, ROUGE, METEOR, BERTScore, YiSi, and MoverScore.
 Stance Detection: Uses a fine-tuned BERTweet model to classify the stance (FAVOR, AGAINST, NONE) between the generated keyphrases and the original statements. Metrics such as precision and F1 score are computed.
 
 The notebook supports processing multiple input CSV files, generating predictions, and saving results (predictions and metrics) to files.
 Prerequisites
 
-Hardware: A machine with a GPU (recommended for faster processing) and CUDA support if using GPU.
+## Hardware: 
+A machine with a GPU (recommended for faster processing) and CUDA support if using GPU.
 Operating System: Windows, Linux, or macOS.
 Python Version: Python 3.8 or higher.
 Dependencies: Install the required Python packages listed in Setup Instructions.
@@ -60,19 +62,19 @@ The KeyBART_Stance folder contains a similar notebook and data subfolder for Key
 T5-related experiments are in the main repository folder (not a separate subfolder) with their own notebook and data subfolder.
 The models folder contains the fine-tuned BERTweet model for stance detection.
 
-Setup Instructions
+## Setup Instructions
 
 Clone the Repository:
 git clone https://github.com/your-repo-name.git
 cd your-repo-name/Bartbase_Stance
 
 
-Set Up a Virtual Environment (recommended):
+## Set Up a Virtual Environment (recommended):
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 
-Install Dependencies:Create a requirements.txt file with the following content:
+## Install Dependencies:Create a requirements.txt file with the following content:
 pandas
 numpy
 torch
@@ -84,17 +86,17 @@ nltk
 bert-score
 jupyter
 
-Install the dependencies:
+## Install the dependencies:
 pip install -r requirements.txt
 
 
-Download NLTK Data:Run the following Python commands to download required NLTK resources:
+## Download NLTK Data:Run the following Python commands to download required NLTK resources:
 import nltk
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 
 
-Prepare the Fine-Tuned BERTweet Model:
+## Prepare the Fine-Tuned BERTweet Model:
 
 The stance detection cells use a fine-tuned BERTweet model located at ../models/bertweet_stance_finetuned (relative to the notebook).
 Replace this path with the actual path to your fine-tuned BERTweet model, or use the pre-trained vinai/bertweet-base model by updating the relevant cell in the notebook:tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
@@ -110,8 +112,8 @@ print(torch.cuda.is_available())  # Should return True if GPU is available
 
 
 
-Data Preparation
-The input data should be in CSV format and stored in the data subfolder of the Bartbase_Stance folder (Bartbase_Stance/data/). The CSV files must have the following columns:
+## Data Preparation
+The input data should be in CSV format and stored in the data subfolder of the Bartbase_Stance folder (Bartbase_Stance/). The CSV files must have the following columns:
 
 For Keyphrase Generation (in the keyphrase generation cells):
 
@@ -141,12 +143,12 @@ You can use the provided example datasets (tse_explicit.csv, tse_implicit.csv, v
 Executing the Notebook
 The bart_stance_notebook.ipynb notebook contains cells for both keyphrase generation and stance detection.
 
-Start Jupyter Notebook:
+## Start Jupyter Notebook:
 jupyter notebook
 
 Open bart_stance_notebook.ipynb in the browser.
 
-Update File Paths:
+## Update File Paths:
 
 In the keyphrase generation cells, update the test_files list with the paths to your input CSV files in the data subfolder:test_files = [
     "data/tse_explicit.csv",
@@ -168,14 +170,14 @@ model = AutoModelForSequenceClassification.from_pretrained("../models/bertweet_s
 
 
 
-Run the Notebook:
+## Run the Notebook:
 
 Execute the cells in sequence (use Shift + Enter to run each cell).
 Start with the cells for keyphrase generation, which will generate keyphrases and save predictions to CSV files in the data subfolder.
 Then run the stance detection cells, which will predict stances and update the prediction CSV files.
 
 
-What Happens:
+## What Happens:
 
 Keyphrase Generation Cells:
 Load the BART model (facebook/bart-base) and tokenizer.
@@ -187,7 +189,7 @@ Save predictions to a CSV file (e.g., data/test_predictions_tse_explicit.csv) an
 
 
 
-Stance Detection Cells:
+## Stance Detection Cells:
 Load the fine-tuned BERTweet model and tokenizer.
 For each input CSV file in csv_files:
 Combine the post and predictions columns to predict the stance.
@@ -228,27 +230,27 @@ test_metrics_<dataset>.json: Contains evaluation metrics for keyphrase generatio
 Output Files
 All output files are saved in the data subfolder (Bartbase_Stance/data/):
 
-Keyphrase Generation:
+## Keyphrase Generation:
 test_predictions_<dataset>.csv: Contains generated keyphrases and ground truth keyphrases.
 test_metrics_<dataset>.json: Contains evaluation metrics for each dataset.
 
 
-Stance Detection:
+## Stance Detection:
 Updated test_predictions_<dataset>.csv: Includes the predicted_stance_BERTTWEET column.
 Classification metrics displayed in the notebook output.
 
 
 
-Troubleshooting
+## Troubleshooting
 
-FileNotFoundError: Ensure the input CSV files exist in Bartbase_Stance/data/. Update the paths in the notebook cells if necessary.
+FileNotFoundError: Ensure the input CSV files exist in Bartbase_Stance/. Update the paths in the notebook cells if necessary.
 ModuleNotFoundError: Verify that all dependencies are installed (pip install -r requirements.txt).
 CUDA Out of Memory: Reduce the batch size or run on CPU by setting device = torch.device("cpu") in the relevant cells.
 BERTweet Model Path Error: Ensure the fine-tuned BERTweet model path is correct or use the pre-trained vinai/bertweet-base model.
 Encoding Issues: If CSV files fail to load, ensure they are encoded in ISO-8859-1 or update the encoding in pd.read_csv (e.g., encoding="ISO-8859-1").
 Jupyter Notebook Not Opening: Ensure Jupyter is installed (pip install jupyter) and run jupyter notebook from the correct directory.
 
-Additional Notes
+## Additional Notes
 
 T5 Experiments: The T5 notebook (t5_stance_notebook.ipynb) is in the main repository folder, with its own data subfolder. Follow similar setup and execution steps, updating model-specific paths and configurations.
 KeyBART Experiments: The KeyBART_Stance folder contains a notebook (keybart_stance_notebook.ipynb) and data subfolder, following a similar structure to this folder.
